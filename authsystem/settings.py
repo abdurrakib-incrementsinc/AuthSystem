@@ -42,7 +42,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    "daphne",
+    # "daphne",
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -61,11 +61,13 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     "debug_toolbar",
     'corsheaders',
+    'django_celery_results',
     # internal
     'user',
     'restaurant',
     'food_items',
     'chatapi',
+    'celery_test',
 ]
 
 SITE_ID = 1
@@ -73,8 +75,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -102,8 +104,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'authsystem.wsgi.application'
-ASGI_APPLICATION = "authsystem.asgi.application"
+WSGI_APPLICATION = 'authsystem.wsgi.application'
+# ASGI_APPLICATION = "authsystem.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -230,6 +232,7 @@ JWT_AUTH_REFRESH_COOKIE = "refresh"
 
 INTERNAL_IPS = [
     "127.0.0.1",
+    '192.168.27.211',
 ]
 
 
@@ -241,3 +244,10 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TIMEZONE = "Asia/Dhaka"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
