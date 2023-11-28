@@ -1,7 +1,6 @@
 import json
 
 import jwt
-from channels.db import database_sync_to_async
 from channels.generic.websocket import WebsocketConsumer
 from django.db.models import Q
 
@@ -14,8 +13,8 @@ from django.conf import settings
 
 class ChatWebSocketConsumer(WebsocketConsumer):
     def connect(self):
-        self.receiver_id = self.scope['url_route']['kwargs']['id']
-        self.receiver = User.objects.get(id=self.receiver_id)
+        receiver_id = self.scope['url_route']['kwargs']['id']
+        self.receiver = User.objects.get(id=receiver_id)
         headers = self.scope.get('headers', [])
         for key, value in headers:
             if key.decode('utf-8') == 'authorization':

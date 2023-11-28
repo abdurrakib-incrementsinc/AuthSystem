@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('rest/', include('restaurant.urls')),
+    path('celery/', include('celery_test.urls')),
 
     # simple_jwt
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
