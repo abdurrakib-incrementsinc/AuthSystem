@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'food_items',
     'chatapi',
     'celery_test',
+    'iris_prediction',
 ]
 
 SITE_ID = 1
