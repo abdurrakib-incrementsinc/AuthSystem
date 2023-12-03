@@ -7,5 +7,6 @@ urlpatterns = [
     path('verify-user/', registration_view.UserRegistrationView.as_view({'get': 'verify_user'}), name="verify_user"),
     path('password-reset/', reset_password_view.PasswordResetView.as_view(), name="password_reset"),
     path("password-verify/", reset_password_view.PasswordResetConfirmView.as_view({"get": "verify_token"}), name="password-verify"),
-    path("password-confirm/<str:token>/", reset_password_view.PasswordResetConfirmView.as_view({"post": "post"}), name="reset-password"),
+    path("password-conform/<str:token>/", reset_password_view.PasswordResetConfirmView.as_view({"post": "post"}), name="reset-password"),
+    path('resend-email/', registration_view.UserRegistrationView.as_view({'get': 'resend_verification_email'}), name="resend_email")
 ]

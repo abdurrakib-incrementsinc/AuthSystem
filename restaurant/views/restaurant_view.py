@@ -10,6 +10,21 @@ class RestaurantViewSet(viewsets.ModelViewSet):
     serializer_class = RestaurantSerializer
     lookup_field = 'slug'
 
+    def get_queryset(self):
+        slug = self.request.query_params.get('search', None)
+        user = self.request.user
+        print(user)
+        if user.is_anonymous:
+            return Restaurant.objects.none()
+        if user.is_superuser:
+            return self.queryset
+        if user.is_owner:
+            return Restaurant.objects.filter(owner=user)
+        if slug:
+            return Restaurant.objects.filter(slug=slug)
+
     def perform_create(self, serializer):
-        print(self.request.user)
+        user = self.request.user
+        user.is_owner = True
+        user.save()
         serializer.save(owner=self.request.user)

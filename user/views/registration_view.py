@@ -11,6 +11,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from utils import helper
+from django.shortcuts import redirect, get_object_or_404
 
 
 def get_tokens_for_user(user):
@@ -38,7 +39,7 @@ class UserRegistrationView(viewsets.ModelViewSet):
             if self._user_validation_token(user, new_user.email, http_host, http_ref):
                 token = get_tokens_for_user(new_user) # generate token for user
                 return Response(
-                    {'token': token, 'user': serializer.data, 'msg': 'Check Mail to Verify The Account'},
+                    {'token': token, 'user_id': new_user.id, 'msg': 'Check Mail to Verify The Account'},
                     status=status.HTTP_201_CREATED
                 )
         return Response({"details": "Account Creation Failed"}, status=status.HTTP_400_BAD_REQUEST)
@@ -49,8 +50,8 @@ class UserRegistrationView(viewsets.ModelViewSet):
         if user or key:
             user.is_active = True
             user.save()
-            return Response({'msg': 'User Registration Successful'}, status=status.HTTP_201_CREATED)
-        return Response({'details': 'User Verification Failed'}, status=status.HTTP_400_BAD_REQUEST)
+            return redirect(to=f"{ref}/create-restaurant/")
+        return redirect(to=f"{ref}/")
 
     def _user_validation_token(self, user_model, email=None, http_host=None, http_ref=None):
         user = User.objects.get(email=email)
@@ -107,4 +108,26 @@ class UserRegistrationView(viewsets.ModelViewSet):
         if not PasswordResetTokenGenerator().check_token(user, token):
             return None, None, ref
         return user, _decrypted_data_dict, ref
+
+    def resend_verification_email(self, request, *args, **kwargs):
+        if user_id := self.request.query_params.get('id', None):
+            if user := get_object_or_404(User, id=user_id):
+                print(request.META)
+                if user.is_active:
+                    return Response(
+                        {'details': "Account already verified"},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                host = request.META
+                http_host = host['HTTP_HOST']
+                http_ref = host.get("HTTP_ORIGIN", "127.0.0.1:5172")
+                if self._user_validation_token(self, user.email, http_host, http_ref):
+                    return Response(
+                        {'details': 'Resend Mail Successful'},
+                        status=status.HTTP_200_OK
+                    )
+                return Response(
+                    {'details': "Resend Email Failed"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 

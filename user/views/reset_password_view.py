@@ -80,7 +80,7 @@ class PasswordResetConfirmView(viewsets.ModelViewSet):
         # validate token
         user, key, ref = self._validate_user(token)
         if user or key:
-            return redirect(to=f"{ref}/user/password-confirm/{token}")
+            return redirect(to=f"{ref}/reset-password/{token}")
         return redirect(to=f"{ref}/")
 
     def _validate_user(self, token):

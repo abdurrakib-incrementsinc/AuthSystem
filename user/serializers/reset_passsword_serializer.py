@@ -27,6 +27,7 @@ class PasswordResetSerializer(serializers.Serializer):
         return data
 
     def __validate_user_token(self, token):
+        print(token)
         _decrypted_data = helper.decode(token)
 
         _decrypted_data_dict = json.loads(_decrypted_data.replace("'", '"'))
@@ -37,6 +38,7 @@ class PasswordResetSerializer(serializers.Serializer):
 
         pk = urlsafe_base64_decode(encoded_pk).decode()
         user = User.objects.get(pk=pk)
+        print(user)
         if not PasswordResetTokenGenerator().check_token(user, token):
             raise serializers.ValidationError("The reset token is invalid")
         return user

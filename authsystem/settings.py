@@ -85,7 +85,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://192.168.27.139:5173",
+    "http://192.168.27.91:5173",
 ]
 
 ROOT_URLCONF = 'authsystem.urls'
@@ -185,6 +185,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Base User Model
 AUTH_USER_MODEL = "user.User"
 
+# Spectacular
 SPECTACULAR_SETTINGS = {
     'TITLE': 'AuthSystem API',
     'DESCRIPTION': 'Your project description',
@@ -193,6 +194,7 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+# JWT
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=50),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
@@ -230,13 +232,13 @@ REST_SESSION_LOGIN = True
 JWT_AUTH_COOKIE = "access"
 JWT_AUTH_REFRESH_COOKIE = "refresh"
 
-
+# debug toolbar
 INTERNAL_IPS = [
     "127.0.0.1",
-    '192.168.27.211',
+    '192.168.27.90',
 ]
 
-
+# redis
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -249,6 +251,7 @@ CHANNEL_LAYERS = {
 # Celery Configuration
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = "Asia/Dhaka"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
