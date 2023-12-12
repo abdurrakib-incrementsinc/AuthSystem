@@ -10,11 +10,11 @@ class CustomUserAdmin(UserAdmin):
     # that reference specific fields on auth.User.
     list_display = [
         "id", "email", "username",
-        "is_superuser", "is_staff",
+        "is_superuser", "is_staff", "is_owner",
         "is_active", "is_manager",
         "date_joined", "last_login"
     ]
-    list_filter = ['is_active', 'is_staff', 'is_superuser', 'is_manager']
+    list_filter = ['is_active', 'is_owner', 'is_staff', 'is_superuser', 'is_manager']
     fieldsets = (
         (None, {"fields": ("id",)}),
         ("Login Info", {"fields": ("username", "email", "password")}),
@@ -25,6 +25,7 @@ class CustomUserAdmin(UserAdmin):
                     "is_superuser",
                     "is_active",
                     "is_manager",
+                    "is_owner",
                     "groups",
                     "user_permissions",
                     "is_staff",

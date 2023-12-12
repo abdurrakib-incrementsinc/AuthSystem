@@ -32,6 +32,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=False,
         help_text='Designate if the user has superuser status',
     )
+    is_owner = models.BooleanField(
+        verbose_name="Owner Status",
+        default=False,
+        help_text="Designate if the user has Owner status",
+    )
     is_manager = models.BooleanField(
         _('Manager Status'),
         default=False,

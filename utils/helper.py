@@ -3,7 +3,7 @@ import qrcode
 from cryptography.fernet import Fernet
 from django.conf import settings
 from django.utils.text import slugify
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFilter
 from django.core.files import File
 
 
@@ -61,7 +61,7 @@ def qr_code_generate(url=None, logo_link=None, **kwargs):
         basewidth = 1000
         # adjust image size
         width, height = qr_size_calculate(basewidth, logo)
-        logo = logo.resize((width, height), Image.ANTIALIAS)
+        logo = logo.resize((width, height), Image.LANCZOS)
 
     QRcode = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
 

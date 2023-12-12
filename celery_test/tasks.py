@@ -8,7 +8,7 @@ from django.db import connection
 def task_example(self, message):
     # stop the execution for 5 seconds
     time.sleep(10)
-    for i in range(10):
+    for i in range(3):
         print(i)
     task = Task.objects.create(name=message)
     task.save()

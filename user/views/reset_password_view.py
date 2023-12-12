@@ -1,7 +1,7 @@
 import json
 from django.contrib.auth import login, get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from ..serializers.reset_passsword_serializer import EmailSerializer, PasswordResetSerializer
+from user.serializers import EmailSerializer, PasswordResetSerializer
 from rest_framework.response import Response
 from rest_framework import status, viewsets, generics
 from ..models import User, OTPModel
@@ -80,7 +80,7 @@ class PasswordResetConfirmView(viewsets.ModelViewSet):
         # validate token
         user, key, ref = self._validate_user(token)
         if user or key:
-            return redirect(to=f"{ref}/user/password-confirm/{token}")
+            return redirect(to=f"{ref}/reset-password/{token}")
         return redirect(to=f"{ref}/")
 
     def _validate_user(self, token):
