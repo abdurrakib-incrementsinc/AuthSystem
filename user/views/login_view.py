@@ -1,6 +1,6 @@
 from django.contrib.auth import login, get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from ..serializers.login_serializer import UserLoginSerializer
+from user.serializers import UserLoginSerializer
 from rest_framework.response import Response
 from rest_framework import status, viewsets, generics
 from ..models import OTPModel
@@ -88,9 +88,7 @@ class UserLoginView(TokenObtainPairView):
             except TokenError as e:
                 raise InvalidToken(e.args[0]) from e
 
-
         except Exception:
-
             resp.data = {
                 "message": "Username or Password error",
                 "data": serializer.validated_data,

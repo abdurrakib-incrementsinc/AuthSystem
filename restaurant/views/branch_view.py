@@ -1,11 +1,11 @@
 from io import BytesIO
 import requests
-from reportlab.pdfgen import canvas
 from rest_framework import viewsets
-from ..models import Branch, Floor, Table, Restaurant
+from ..models import Branch, Floor, Table
 from restaurant.serializers import BranchSerializer, FloorSerializer, TableSerializer
 from PIL import Image
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 
 class BranchViewSets(viewsets.ModelViewSet):
@@ -16,9 +16,6 @@ class BranchViewSets(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         slug = self.request.query_params.get('slug', None)
-        print(slug)
-        slug2 = self.kwargs.get('slug')
-        print(slug2)
         if user.is_superuser:
             return self.queryset
         if user.is_anonymous:
@@ -26,9 +23,7 @@ class BranchViewSets(viewsets.ModelViewSet):
         if user.is_owner:
             return Branch.objects.filter(restaurant__owner=user)
         if slug:
-            return Branch.objects.filter(slug=slug)
-        if slug2:
-            return Branch.objects.filter(slug=slug2)
+            return get_object_or_404(Branch, slug=slug)
 
     def download_qr_pdf(self, request, *args, **kwargs):
         slug = self.request.query_params.get('slug', None)
@@ -74,9 +69,9 @@ class FloorViewSets(viewsets.ModelViewSet):
         if user.is_superuser:
             return self.queryset
         elif user.is_anonymous:
-            return None
+            return Floor.objects.none()
         elif slug:
-            return Floor.objects.get(slug=slug)
+            return get_object_or_404(Floor, slug=slug)
 
     def perform_create(self, serializer):
         branch = Branch.objects.get(manager=self.request.user)
@@ -95,6 +90,6 @@ class TableViewSets(viewsets.ModelViewSet):
         if user.is_superuser:
             return self.queryset
         elif user.is_anonymous:
-            return None
+            return Table.objects.none()
         elif slug:
-            return Table.objects.get(slug=slug)
+            return get_object_or_404(Table, slug=slug)

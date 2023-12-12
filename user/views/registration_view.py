@@ -3,9 +3,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from rest_framework_simplejwt.tokens import RefreshToken
-from ..serializers.registration_serializer import UserRegisterSerializer
+from user.serializers import UserRegisterSerializer
 from rest_framework.response import Response
-from rest_framework import status, viewsets, generics
+from rest_framework import status, viewsets
 from ..models import User
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode

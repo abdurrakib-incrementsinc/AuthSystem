@@ -29,6 +29,7 @@ urlpatterns = [
     path('rest/', include('restaurant.urls')),
     path('celery/', include('celery_test.urls')),
     path('ml/', include('iris_prediction.urls')),
+    # path('api-auth/', include('rest_framework.urls')),
 
     # simple_jwt
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
