@@ -8,6 +8,4 @@ router.register('branch', BranchViewSets, basename='branch')
 router.register('floor', FloorViewSets, basename='floor')
 router.register('table', TableViewSets, basename='table')
 
-urlpatterns = [
-    path('qr-pdf-download/', BranchViewSets.as_view({'get': 'download_qr_pdf'}), name='aqr-download')
-] + router.urls
+urlpatterns = [] + router.urls

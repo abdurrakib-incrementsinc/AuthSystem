@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # external
+    'social_django',
     'rest_framework',
+    'drf_social_oauth2',
+    'oauth2_provider',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
@@ -69,6 +72,10 @@ INSTALLED_APPS = [
     'chatapi',
     'celery_test',
     'iris_prediction',
+    'websocket_connect',
+
+
+    'socket_io',
 ]
 
 SITE_ID = 1
@@ -104,6 +111,13 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
 
 WSGI_APPLICATION = 'authsystem.wsgi.application'
 # ASGI_APPLICATION = "authsystem.asgi.application"
@@ -153,6 +167,7 @@ REST_FRAMEWORK = {
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
+        'rest_framework.authentication.TokenAuthentication',
 
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -259,3 +274,5 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # other
 LOGOUT_ON_PASSWORD_CHANGE = False
+
+SOCKETIO_PORT = 8001

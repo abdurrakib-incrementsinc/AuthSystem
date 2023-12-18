@@ -6,6 +6,7 @@ from restaurant.serializers import BranchSerializer, FloorSerializer, TableSeria
 from PIL import Image
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from rest_framework.decorators import action
 
 
 class BranchViewSets(viewsets.ModelViewSet):
@@ -25,6 +26,7 @@ class BranchViewSets(viewsets.ModelViewSet):
         if slug:
             return get_object_or_404(Branch, slug=slug)
 
+    @action(detail=False, methods=['GET'])
     def download_qr_pdf(self, request, *args, **kwargs):
         slug = self.request.query_params.get('slug', None)
         branch = Branch.objects.get(slug=slug)

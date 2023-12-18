@@ -32,15 +32,19 @@ daphne==4.0.0
 debugpy==1.8.0
 decorator==5.1.1
 defusedxml==0.7.1
+Deprecated==1.2.14
 dj-rest-auth==5.0.1
 Django==4.2.7
 django-allauth==0.55.2
 django-celery-results==2.5.1
 django-cors-headers==4.3.1
 django-debug-toolbar==4.2.0
+django-oauth-toolkit==2.3.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.0
+drf-social-oauth2==2.1.3
 drf-spectacular==0.26.5
+ecdsa==0.18.0
 executing==2.0.1
 fastjsonschema==2.19.0
 fqdn==1.5.1
@@ -71,6 +75,7 @@ jupyterlab==4.0.9
 jupyterlab-widgets==3.0.9
 jupyterlab_pygments==0.3.0
 jupyterlab_server==2.25.2
+jwcrypto==1.5.0
 kombu==5.3.4
 MarkupSafe==2.1.3
 matplotlib-inline==0.1.6
@@ -105,7 +110,9 @@ pyotp==2.9.0
 pypng==0.20220715.0
 python-dateutil==2.8.2
 python-decouple==3.8
+python-jose==3.3.0
 python-json-logger==2.0.7
+python-social-auth==0.3.6
 python3-openid==3.2.0
 pytz==2023.3.post1
 pywin32==306
@@ -123,6 +130,7 @@ requests-oauthlib==1.3.1
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
 rpds-py==0.12.0
+rsa==4.9
 scikit-learn==1.3.2
 scipy==1.11.4
 Send2Trash==1.8.2
@@ -130,6 +138,8 @@ service-identity==23.1.0
 six==1.16.0
 sklearn==0.0.post11
 sniffio==1.3.0
+social-auth-app-django==5.4.0
+social-auth-core==4.5.1
 soupsieve==2.5
 sqlparse==0.4.4
 stack-data==0.6.3
@@ -153,4 +163,5 @@ webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.6.4
 widgetsnbextension==4.0.9
+wrapt==1.16.0
 zope.interface==6.1

@@ -29,6 +29,8 @@ urlpatterns = [
     path('rest/', include('restaurant.urls')),
     path('celery/', include('celery_test.urls')),
     path('ml/', include('iris_prediction.urls')),
+    path('so/', include('websocket_connect.urls')),
+    # path('socket/', include('socket_io.urls')),
     # path('api-auth/', include('rest_framework.urls')),
 
     # simple_jwt
@@ -40,4 +42,7 @@ urlpatterns = [
     path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     # debug toolbar
     path("__debug__/", include("debug_toolbar.urls")),
+    # social auth
+    path('auth/', include('social_django.urls', namespace='social')),
+    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
