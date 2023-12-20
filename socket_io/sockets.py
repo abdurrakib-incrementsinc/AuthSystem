@@ -86,4 +86,4 @@ socket_handler = SocketHandler()
 # Register the event handlers
 socket_handler.sio.on("connect")(socket_handler.connect)
 socket_handler.sio.on("message")(socket_handler.print_message)
-socket_handler.siot.on("disconnect")(socket_handler.disconnect)
+socket_handler.sio.on("disconnect")(socket_handler.disconnect)
