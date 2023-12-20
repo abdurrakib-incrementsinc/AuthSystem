@@ -57,7 +57,6 @@ django_asgi_app = get_asgi_application()
 
 # it's important to make all other imports below this comment
 import socketio
-from socket_io.sockets import sio
+from socket_io.sockets import socket_handler
 
-
-application = socketio.ASGIApp(sio, django_asgi_app)
+application = socketio.ASGIApp(socket_handler.sio, django_asgi_app)

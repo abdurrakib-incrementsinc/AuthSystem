@@ -29,8 +29,6 @@ urlpatterns = [
     path('rest/', include('restaurant.urls')),
     path('celery/', include('celery_test.urls')),
     path('ml/', include('iris_prediction.urls')),
-    path('so/', include('websocket_connect.urls')),
-    # path('socket/', include('socket_io.urls')),
     # path('api-auth/', include('rest_framework.urls')),
 
     # simple_jwt

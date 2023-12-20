@@ -30,19 +30,19 @@ class UserLoginView(TokenObtainPairView):
         Method for login without OTP
         """
         print('direct_login')
-        if settings.REST_SESSION_LOGIN:
-            login(request, user)
+        # if settings.REST_SESSION_LOGIN:
+        #     login(request, user)
         resp = Response()
 
-        set_jwt_cookies(
-            response=resp,
-            access_token=serializer.validated_data.get(
-                settings.JWT_AUTH_COOKIE
-            ),  # noqa
-            refresh_token=serializer.validated_data.get(
-                settings.JWT_AUTH_REFRESH_COOKIE
-            ),
-        )
+        # set_jwt_cookies(
+        #     response=resp,
+        #     access_token=serializer.validated_data.get(
+        #         settings.JWT_AUTH_COOKIE
+        #     ),  # noqa
+        #     refresh_token=serializer.validated_data.get(
+        #         settings.JWT_AUTH_REFRESH_COOKIE
+        #     ),
+        # )
 
         # resp.data = serializer.validated_data
         resp.status_code = status.HTTP_200_OK
@@ -52,18 +52,18 @@ class UserLoginView(TokenObtainPairView):
         }
         return resp
 
-    @staticmethod
-    def _otp_login(user):
-        """
-        Method for returning secret key if OTP is active for user
-        """
-        print('otp_login')
-        refresh_token = RefreshToken.for_user(user)
-        fer_key = helper.encode(str(refresh_token))
-        return Response(
-            {"secret": fer_key},
-            status=status.HTTP_202_ACCEPTED,
-        )
+    # @staticmethod
+    # def _otp_login(user):
+    #     """
+    #     Method for returning secret key if OTP is active for user
+    #     """
+    #     print('otp_login')
+    #     refresh_token = RefreshToken.for_user(user)
+    #     fer_key = helper.encode(str(refresh_token))
+    #     return Response(
+    #         {"secret": fer_key},
+    #         status=status.HTTP_202_ACCEPTED,
+    #     )
 
     def post(self, request, *args, **kwargs):
         print(request.data)

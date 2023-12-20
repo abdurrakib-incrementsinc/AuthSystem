@@ -72,7 +72,6 @@ INSTALLED_APPS = [
     'chatapi',
     'celery_test',
     'iris_prediction',
-    'websocket_connect',
 
 
     'socket_io',
