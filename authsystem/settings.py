@@ -72,8 +72,7 @@ INSTALLED_APPS = [
     'chatapi',
     'celery_test',
     'iris_prediction',
-
-
+    'pdf_reading',
     'socket_io',
 ]
 
